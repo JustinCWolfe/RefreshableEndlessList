@@ -8,6 +8,7 @@ import java.util.Observer;
 import com.refreshableendlesslist.CompleteListenerTask.CompleteListener;
 import com.refreshableendlesslist.CompleteListenerTask.TaskResult;
 import com.refreshableendlesslist.CompleteListenerTask.TaskStatus;
+import com.refreshableendlesslist.ObservableModel.ObservableModelProperty;
 import com.refreshableendlesslist.RefreshableEndlessListFragment.PagingFrame;
 
 import android.animation.Animator;
@@ -94,9 +95,9 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
 
     private static final int DEFAULT_DATA_SIZE = 50;
 
-    protected String propertyNameToObserve;
+    protected ObservableModelProperty propertyToObserve;
 
-    protected RefreshableEndlessListModel model;
+    protected ObservableModel model;
 
     protected Integer dataSize;
 
@@ -230,7 +231,7 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
     @Override
     public void update(Observable observable, Object data)
     {
-        if (propertyNameToObserve != null && propertyNameToObserve.equals(data)) {
+        if (propertyToObserve == data) {
             List<T> listData = getDataToBindToList();
             if (listData != null) {
                 refreshingAdapter = true;

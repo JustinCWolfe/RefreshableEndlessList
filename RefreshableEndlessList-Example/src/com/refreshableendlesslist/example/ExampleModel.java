@@ -2,11 +2,11 @@ package com.refreshableendlesslist.example;
 
 import java.util.List;
 
-import com.refreshableendlesslist.RefreshableEndlessListModel;
+import com.refreshableendlesslist.ObservableModel;
 
-public class ExampleModel extends RefreshableEndlessListModel
+public class ExampleModel extends ObservableModel
 {
-    public static final String TWEETS_PROPERTY_NAME = "TWEETS";
+    public static final ObservableModelProperty TWEETS_PROPERTY = ObservableModelProperty.create();
 
     private static final ExampleModel MODEL = new ExampleModel();
 
@@ -25,7 +25,7 @@ public class ExampleModel extends RefreshableEndlessListModel
     public static void setTweets(List<Tweet> tweets)
     {
         MODEL.tweets = tweets;
-        MODEL.publishPropertyChanged(TWEETS_PROPERTY_NAME);
+        MODEL.publishPropertyChanged(TWEETS_PROPERTY);
     }
 
     public static void addTweets(List<Tweet> tweets, boolean addToBack)
@@ -37,7 +37,7 @@ public class ExampleModel extends RefreshableEndlessListModel
             MODEL.tweets.clear();
             MODEL.tweets.addAll(tweets);
         }
-        MODEL.publishPropertyChanged(TWEETS_PROPERTY_NAME);
+        MODEL.publishPropertyChanged(TWEETS_PROPERTY);
     }
 }
 

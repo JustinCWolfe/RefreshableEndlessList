@@ -29,7 +29,7 @@ public class TweetsFragment extends
         listViewDivider = getResources().getDrawable(R.color.blue);
         listViewDividerHeight = 2;
         model = ExampleModel.getInstance();
-        propertyNameToObserve = ExampleModel.TWEETS_PROPERTY_NAME;
+        propertyToObserve = ExampleModel.TWEETS_PROPERTY;
         View postsView = super.onCreateView(inflater, container, savedInstance);
         return postsView;
     }
