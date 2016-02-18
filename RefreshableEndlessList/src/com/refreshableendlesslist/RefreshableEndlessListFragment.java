@@ -95,6 +95,8 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
 
     private static final int DEFAULT_DATA_SIZE = 50;
 
+    private static final String REQUIRED_FIELD_NOT_SET_MSG = "Fields 'propertyToObserve' and 'model' must be set.";
+
     protected ObservableModelProperty propertyToObserve;
 
     protected ObservableModel model;
@@ -126,6 +128,10 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance)
     {
+        if (propertyToObserve == null || model == null) {
+            throw new UnsupportedOperationException(REQUIRED_FIELD_NOT_SET_MSG);
+        }
+
         View view = inflater.inflate(getRefreshableEndlessListLayoutId(), container, false);
 
         swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
