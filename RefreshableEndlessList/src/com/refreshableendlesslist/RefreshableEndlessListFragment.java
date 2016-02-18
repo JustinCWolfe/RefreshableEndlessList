@@ -234,18 +234,22 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
 
     protected abstract U createPagingAdapter(Context context, List<T> data);
 
+    protected void setRefreshableEndlessListAdapter(U adapter)
+    {
+        refreshingAdapter = true;
+        setListAdapter(adapter);
+        refreshingAdapter = false;
+    }
+
     @Override
     public void update(Observable observable, Object data)
     {
         if (propertyToObserve == data) {
             List<T> listData = getDataToBindToList();
             if (listData != null) {
-                refreshingAdapter = true;
-                adapter = createPagingAdapter(getActivity(), listData);
-                setListAdapter(adapter);
+                setRefreshableEndlessListAdapter(createPagingAdapter(getActivity(), listData));
                 getListView().setSelectionFromTop(scrollContext.firstVisibleObjectIndex,
                         scrollContext.firstVisibleObjectScrollY);
-                refreshingAdapter = false;
             }
         }
     }
@@ -299,6 +303,11 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
         return (LoadType.ENDLESS_LIST_LOAD.equals(loadType));
     }
     
+    protected void setNextLoadOverridePagingFrame(V pagingFrame)
+    {
+        pagingFrameHolder.put(pagingFrame);
+    }
+
     private void load(final LoadType requestedLoadType)
     {
         if (LoadType.CACHE_LOAD.equals(requestedLoadType)) {
