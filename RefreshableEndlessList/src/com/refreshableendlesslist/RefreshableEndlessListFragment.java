@@ -237,6 +237,7 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
     protected void setRefreshableEndlessListAdapter(U adapter)
     {
         refreshingAdapter = true;
+        this.adapter = adapter;
         setListAdapter(adapter);
         refreshingAdapter = false;
     }
