@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>RefreshableEndlessList by JustinCWolfe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">RefreshableEndlessList</h1>
+      <h2 class="project-tagline">Android refreshable endlist list fragment.</h2>
+      <a href="https://github.com/JustinCWolfe/RefreshableEndlessList" class="btn">View on GitHub</a>
+      <a href="https://github.com/JustinCWolfe/RefreshableEndlessList/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/JustinCWolfe/RefreshableEndlessList/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="refreshableendlesslist" class="anchor" href="#refreshableendlesslist" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RefreshableEndlessList</h1>
+
+<p>Android refreshable endlist list fragment.</p>
+
+<h2>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Description</h2>
+
+<p>An Android abstract fragment and supporting code which allows you to easily create list views that support endless scrolling as well as pull down refresh.  Both endless list and pull down refresh will initiate loads from a service you define and will update the view accordingly through an observable model.</p>
+
+<p>Pull down refresh uses a SwipeRefreshLayout widget.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<ol>
+<li><p>Include the RefreshableEndlessList library in your project.</p></li>
+<li>
+<p>Create an entity object which contains the data that each of your list items will be bound to.</p>
+
+<ul>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/Tweet.java">Tweet</a> for example. </li>
+</ul>
+</li>
+<li>
+<p>Create a layout resource that will be used for each item in your list.</p>
+
+<ul>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/res/layout/tweet_grid_item.xml">tweet_grid_item</a> for example. </li>
+</ul>
+</li>
+<li>
+<p>Create an adapter derived from ArrayAdapter that will perform the binding between the entity object you created in step 2 and the layout you created in step 3.</p>
+
+<ul>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/TweetsFragment.java">TweetsFragment</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>Create a task derived from CompleteListenerTask that will load data from a service.  </p>
+
+<ul>
+<li>This task should handle both refresh and endless list loads.</li>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/GetTweetsTask.java">GetTweetsTask</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>Create a paging frame derived from RefreshableEndlessListFragment.PagingFrame which defines how you want paging for data loads to work.</p>
+
+<ul>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/GetTweetsTask.java">GetTweetsTask</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>Create a fragment derived from RefreshableEndlessListFragment.</p>
+
+<ul>
+<li>RefreshableEndlessListFragment is an abstract generic class that extends ListFragment.</li>
+<li>The first bounded type T is for the type of the entity, from step 2, your list items will be bound to.</li>
+<li>The second bounded type U, which extends ArrayAdapter, is for the type of your list view adapter, from step 4.</li>
+<li>The third bounded type V, which extends PagingFrame, is for the type of paging frame, from step 5, used by your view during data loads.</li>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/TweetsFragment.java">TweetsFragment</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>Create a model derived from ObservableModel.</p>
+
+<ul>
+<li>Create an ObservableModelProperty object that will be sent when the data source your list view is observing is changed.</li>
+<li>Create get, set and add methods for the data source your list view is observing.</li>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/ExampleModel.java">ExampleModel</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>At the start of your fragment onCreateView method, set the following properties.</p>
+
+<ul>
+<li>dataSize (optional; defaults to 50) - how many items will be requested for each load.</li>
+<li>listViewDivider (optional) - a custom list view item divider.</li>
+<li>listViewDividerHeight (optional) - a custom height for your list view divider.</li>
+<li>model (required) - a model object, which extends ObservableModel, that your view will observe for data changes.</li>
+<li>propertyToObserve (required) - an ObservableModelProperty object that is sent from the model when the datasource your view is concerned with is changed.</li>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/TweetsFragment.java">TweetsFragment</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>Override the createPagingFrame method.</p>
+
+<ul>
+<li>Construct and return the paging frame object you defined in step 6.</li>
+<li>The paging frame object will normally be different depending on the type of load (refresh, endless list, etc).</li>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/TweetsFragment.java">TweetsFragment</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>Override the createPagingAdapter method.</p>
+
+<ul>
+<li>Construct and return the paging adapter object you defined in step 4.</li>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/TweetsFragment.java">TweetsFragment</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>Override the getDataToBindToList method.</p>
+
+<ul>
+<li>Call the get method for the model property you are observing.</li>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/TweetsFragment.java">TweetsFragment</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>Override the setLoadedData method.</p>
+
+<ul>
+<li>Call the set method for the model property you are observing.</li>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/TweetsFragment.java">TweetsFragment</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>Override the addLoadedData method.</p>
+
+<ul>
+<li>Call the add method for the model property you are observing.</li>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/TweetsFragment.java">TweetsFragment</a> for example.</li>
+</ul>
+</li>
+<li>
+<p>Override the createLoadTask method.</p>
+
+<ul>
+<li>Construct and return the task object you defined in step 5.</li>
+<li>See <a href="../blob/master/RefreshableEndlessList-Example/src/com/refreshableendlesslist/example/TweetsFragment.java">TweetsFragment</a> for example.</li>
+</ul>
+</li>
+</ol>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p><a href="../blob/master/LICENSE">MIT License</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/JustinCWolfe/RefreshableEndlessList">RefreshableEndlessList</a> is maintained by <a href="https://github.com/JustinCWolfe">JustinCWolfe</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
