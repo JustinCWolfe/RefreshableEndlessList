@@ -1,5 +1,6 @@
 # RefreshableEndlessList
-Android refreshable endlist list fragment.
+
+Android library implementing a refreshable endlist list.
 
 ## Description
 
