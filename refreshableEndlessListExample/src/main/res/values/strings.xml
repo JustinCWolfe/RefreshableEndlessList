@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RefreshableEndlessList-Sample</string>
+    <string name="tweet_id_label">Tweet ID=</string>
+    <string name="tweet_date_label">Millis since epoch=</string>
+
+</resources>
