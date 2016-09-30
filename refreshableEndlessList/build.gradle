@@ -1,4 +1,10 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+
+group = 'com.refreshableendlesslist'
+version = '1.0'
 
 android {
     compileSdkVersion 24
@@ -19,4 +25,48 @@ android {
 
 dependencies {
     compile('com.android.support:support-v13:24.2.1')
+}
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath()
+            .join(File.pathSeparator))
+}
+
+task generateJavadocsJar(type: Jar) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+generateJavadocsJar.dependsOn generateJavadocs
+
+artifacts {
+    archives generateJavadocsJar
+    archives generateSourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty('bintray.user')
+    key = properties.getProperty('bintray.apikey')
+    configurations = ['archives']
+    pkg {
+        repo = 'JustinCWolfe'
+        name = 'refreshable-endless-list'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/JustinCWolfe/RefreshableEndlessList.git'
+        version {
+            name = '1.0'
+            desc = 'Android library implementing a refreshable endlist list 1.0'
+            released  = new Date()
+            vcsTag = '1.0'
+        }
+    }
 }
