@@ -27,7 +27,7 @@ public abstract class CompleteListenerTask<T> extends AsyncTask<Void, Void, T>
             }
         }
 
-        private TaskStatus(boolean value)
+        TaskStatus(boolean value)
         {
             this.value = value;
         }

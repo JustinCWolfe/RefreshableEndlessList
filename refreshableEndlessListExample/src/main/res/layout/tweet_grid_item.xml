@@ -12,7 +12,6 @@
 	    android:layout_height="wrap_content" 
         android:layout_alignParentTop="true"
         android:gravity="start|center_vertical"
-       	android:singleLine="false"
         android:ellipsize="marquee"
         android:text="@string/tweet_id_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -24,8 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@id/tweet_id_text_view_label"
         android:gravity="start|center_vertical"
-       	android:singleLine="false"
-        android:ellipsize="marquee"
+		android:ellipsize="marquee"
         android:textAppearance="?android:attr/textAppearanceMedium" />
         
    	<TextView
@@ -34,8 +32,7 @@
 	    android:layout_height="wrap_content" 
         android:layout_below="@id/tweet_id_text_view"
         android:gravity="start|center_vertical"
-       	android:singleLine="false"
-        android:ellipsize="marquee"
+		android:ellipsize="marquee"
         android:textAppearance="?android:attr/textAppearanceMedium" />
         
    	<TextView
@@ -44,8 +41,7 @@
 	    android:layout_height="wrap_content" 
         android:layout_below="@id/tweet_text_text_view"
         android:gravity="start|center_vertical"
-       	android:singleLine="false"
-        android:ellipsize="marquee"
+		android:ellipsize="marquee"
         android:text="@string/tweet_date_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
         
@@ -56,8 +52,7 @@
         android:layout_below="@id/tweet_text_text_view"
         android:layout_toEndOf="@id/tweet_date_text_view_label"
         android:gravity="start|center_vertical"
-       	android:singleLine="false"
-        android:ellipsize="marquee"
+		android:ellipsize="marquee"
         android:textAppearance="?android:attr/textAppearanceMedium" />
         
 </RelativeLayout>

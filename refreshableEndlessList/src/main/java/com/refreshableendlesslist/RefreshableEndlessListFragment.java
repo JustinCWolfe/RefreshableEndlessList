@@ -1,6 +1,7 @@
 package com.refreshableendlesslist;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -30,7 +31,7 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
         ListFragment implements SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener, Observer
 {
     public enum LoadType {
-        NOT_LOADING, CACHE_LOAD, INITIAL_LOAD, REFRESH, ENDLESS_LIST_LOAD;
+        NOT_LOADING, CACHE_LOAD, INITIAL_LOAD, REFRESH, ENDLESS_LIST_LOAD
     }
 
     public static class PagingFrame
@@ -123,8 +124,6 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
 
     private View progressView;
 
-    private ListView listView;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance)
     {
@@ -141,7 +140,7 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
 
         progressView = view.findViewById(R.id.progress_view);
 
-        listView = (ListView) view.findViewById(android.R.id.list);
+        ListView listView = (ListView) view.findViewById(android.R.id.list);
         if (listViewDivider != null) {
             listView.setDivider(listViewDivider);
         }
@@ -342,9 +341,7 @@ public abstract class RefreshableEndlessListFragment<T, U extends ArrayAdapter<T
                             setLoadedData(loadedData);
                         }
                         if (TaskStatus.PASSED.equals(taskResult.status)) {
-                            for (T loadedObject : taskResult.result) {
-                                loadedData.add(loadedObject);
-                            }
+                            Collections.addAll(loadedData, taskResult.result);
                             if (isSetLoadedData) {
                                 setLoadedData(loadedData);
                             } else {
